@@ -12,4 +12,14 @@ M.nvimtree = {
   }
 }
 
+M.general = {
+  n = {
+    ["<CR>"] = {"<cmd> noh<CR>"}
+  },
+  i = {
+    ["<C-s>"] = {"<cmd> :w<CR>"}
+  }
+}
+
 return M
+
