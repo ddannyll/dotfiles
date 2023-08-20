@@ -1,0 +1,12 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "$character$all"
+
+# disable that weird newline thing
+add_newline = false
+
+[character]
+success_symbol = '[](bold red)[](bold green)[](bold yellow)'
+
+[line_break]
+disabled = true
