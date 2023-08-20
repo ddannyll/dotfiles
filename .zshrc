@@ -5,7 +5,7 @@
 source ~/Repos/znap/znap.zsh  # Start Znap
 
 
-#znap source marlonrichert/zsh-autocomplete
+znap source marlonrichert/zsh-autocomplete
 _comp_options+=(globdots)
 
 bindkey "^[[1;5C" forward-word   # ctrl + ->
