@@ -21,5 +21,15 @@ M.general = {
   }
 }
 
+M.lspconfig = {
+  n = {
+    ["<S-f>"] = {
+      function ()
+        vim.lsp.buf.hover()
+      end
+    }
+  }
+}
+
 return M
 

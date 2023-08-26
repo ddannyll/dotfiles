@@ -1,6 +1,13 @@
 local overrides = require 'custom.overrides'
 local plugins = {
   {
+    "wfxr/minimap.vim",
+    lazy = false,
+    init = function()
+      vim.cmd("let g:minimap_auto_start = 1")
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
