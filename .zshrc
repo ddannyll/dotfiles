@@ -1,3 +1,5 @@
+export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
+
 # Download Znap, if it's not there yet.
 [[ -r ~/Repos/znap/znap.zsh ]] ||
     git clone --depth 1 -- \
