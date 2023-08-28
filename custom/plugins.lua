@@ -1,6 +1,17 @@
 local overrides = require 'custom.overrides'
 local plugins = {
   {
+    'christoomey/vim-tmux-navigator',
+    lazy = false,
+  },
+  {
+    "nmac427/guess-indent.nvim",
+    lazy = false,
+    config = function ()
+      require('guess-indent').setup {}
+    end,
+  },
+  {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
@@ -10,7 +21,7 @@ local plugins = {
   },
   {
     "wfxr/minimap.vim",
-    lazy = false,
+    lazy = true,
     init = function()
       vim.cmd("let g:minimap_auto_start = 1")
     end,

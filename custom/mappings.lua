@@ -14,7 +14,11 @@ M.nvimtree = {
 
 M.general = {
   n = {
-    ["<CR>"] = {"<cmd> noh<CR>"}
+    ["<CR>"] = {"<cmd> noh<CR>"},
+    ["<C-h>"] = {"<cmd> TmuxNavigateLeft<CR>", "window left"},
+    ["<C-l>"] = {"<cmd> TmuxNavigateRight<CR>", "window Right"},
+    ["<C-j>"] = {"<cmd> TmuxNavigateDown<CR>", "window Down"},
+    ["<C-k>"] = {"<cmd> TmuxNavigateUp<CR>", "window Up"},
   },
   i = {
     ["<C-s>"] = {"<cmd> :w<CR>"}
