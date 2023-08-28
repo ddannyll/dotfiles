@@ -37,6 +37,7 @@ local plugins = {
       ensure_installed = {
         "gopls",
         "typescript-language-server",
+        "eslint-lsp"
       },
     },
   },
