@@ -28,7 +28,11 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      { "windwp/nvim-ts-autotag" },
+    },
     opts = {
+      autotag = {enable = true},
       ensure_installed = {
         "lua",
         -- web dev 
