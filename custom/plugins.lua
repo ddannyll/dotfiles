@@ -43,6 +43,7 @@ local plugins = {
         "tsx",
         "json",
         "go",
+        "prisma",
       },
     },
   },
