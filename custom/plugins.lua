@@ -1,6 +1,14 @@
 local overrides = require("custom.overrides")
 local plugins = {
 	{
+		"andweeb/presence.nvim",
+		lazy = false,
+		opts = {
+			buttons = false,
+			main_image = "file",
+		},
+	},
+	{
 		"ggandor/leap.nvim",
 		init = function()
 			require("leap").add_default_mappings()
