@@ -28,7 +28,7 @@ M.lspconfig = {
 	n = {
 		["<S-f>"] = {
 			function()
-				vim.lsp.buf.hover()
+				vim.diagnostic.open_float()
 			end,
 		},
 	},

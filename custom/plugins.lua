@@ -77,6 +77,8 @@ local plugins = {
 				"stylua",
 				"css-lsp",
 				"tailwindcss-language-server",
+				"prettier",
+				"shellcheck",
 			},
 		},
 	},
@@ -119,6 +121,23 @@ local plugins = {
 	{
 		"hrsh7th/nvim-cmp",
 		opts = overrides.cmp,
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		opts = {
+			git = {
+				enable = true,
+				timeout = 400,
+			},
+			renderer = {
+				highlight_git = true,
+				icons = {
+					show = {
+						git = true,
+					},
+				},
+			},
+		},
 	},
 }
 return plugins

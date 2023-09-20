@@ -1,17 +1,17 @@
 font:
   size: 14.0
   normal:
-    family: JetBrainsMono Nerd Font
-    style:  Regular
+    family: FiraCodeNerdFont
+    style: Regular
   italic:
-    family: JetBrainsMono Nerd Font
-    style:  Italic
+    family: FiraCodeNerdFont
+    style: Italic
   bold:
-    family: JetBrainsMono Nerd Font
-    style:  Bold
+    family: FiraCodeNerdFont
+    style: Bold
 
 window:
   padding:
-    x: 10 
+    x: 10
     y: 10
   opacity: 0.8

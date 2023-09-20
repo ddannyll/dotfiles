@@ -6,6 +6,11 @@ local lint = null_ls.builtins.diagnostics
 local sources = {
 	formatting.prettier,
 	formatting.stylua,
+	null_ls.builtins.formatting.gofumpt,
+	null_ls.builtins.formatting.golines,
+	null_ls.builtins.formatting.goimports_reviser.with({
+		extra_args = { "-rm-unused" },
+	}),
 
 	lint.shellcheck,
 }
@@ -20,7 +25,7 @@ null_ls.setup({
 				group = augroup,
 				buffer = bufnr,
 				callback = function()
-					vim.lsp.buf.format({ async = true })
+					vim.lsp.buf.format({ buffnr = bufnr })
 				end,
 			})
 		end
