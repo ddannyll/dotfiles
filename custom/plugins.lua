@@ -75,6 +75,8 @@ local plugins = {
 				"typescript-language-server",
 				"eslint-lsp",
 				"stylua",
+				"css-lsp",
+				"tailwindcss-language-server",
 			},
 		},
 	},
