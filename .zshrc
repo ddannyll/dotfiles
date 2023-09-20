@@ -24,3 +24,4 @@ alias lv='nvim'
 alias tm='tmux'
 alias tms='tmux new -s'
 alias tma='tmux attach -t'
+setopt nohup
