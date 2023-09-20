@@ -1,6 +1,12 @@
 local overrides = require("custom.overrides")
 local plugins = {
 	{
+		"lukas-reineke/virt-column.nvim",
+		init = function()
+			require("virt-column").setup()
+		end,
+	},
+	{
 		"andweeb/presence.nvim",
 		lazy = false,
 		opts = {
