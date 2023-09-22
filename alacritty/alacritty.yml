@@ -1,13 +1,13 @@
 font:
   size: 14.0
   normal:
-    family: FiraCodeNerdFont
+    family: JetBrainsMonoNerdFont
     style: Regular
   italic:
-    family: FiraCodeNerdFont
+    family: JetBrainsMonoNerdFont
     style: Italic
   bold:
-    family: FiraCodeNerdFont
+    family: JetBrainsMonoNerdFont
     style: Bold
 
 window:
