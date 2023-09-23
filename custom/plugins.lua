@@ -34,9 +34,25 @@ local plugins = {
 				"tailwindcss-language-server",
 				"prettier",
 				"shellcheck",
-				"python-language-server",
+				"pyright",
+				"mypy",
+				"ruff",
+				"black",
 			},
 		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"jose-elias-alvarez/null-ls.nvim",
+			config = function()
+				require("custom.configs.null-ls")
+			end,
+		},
+		config = function()
+			require("plugins.configs.lspconfig")
+			require("custom.configs.lspconfig")
+		end,
 	},
 	{
 		"lukas-reineke/virt-column.nvim",
@@ -82,19 +98,6 @@ local plugins = {
 		lazy = true,
 		init = function()
 			vim.cmd("let g:minimap_auto_start = 1")
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"jose-elias-alvarez/null-ls.nvim",
-			config = function()
-				require("custom.configs.null-ls")
-			end,
-		},
-		config = function()
-			require("plugins.configs.lspconfig")
-			require("custom.configs.lspconfig")
 		end,
 	},
 	{
