@@ -1,6 +1,44 @@
 local overrides = require("custom.overrides")
 local plugins = {
 	{
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			{ "windwp/nvim-ts-autotag" },
+		},
+		opts = {
+			autotag = { enable = true },
+			ensure_installed = {
+				"lua",
+				"python",
+				-- web dev
+				"html",
+				"css",
+				"javascript",
+				"typescript",
+				"tsx",
+				"json",
+				"go",
+				"prisma",
+			},
+		},
+	},
+	{
+		"williamboman/mason.nvim",
+		opts = {
+			ensure_installed = {
+				"gopls",
+				"typescript-language-server",
+				"eslint-lsp",
+				"stylua",
+				"css-lsp",
+				"tailwindcss-language-server",
+				"prettier",
+				"shellcheck",
+				"python-language-server",
+			},
+		},
+	},
+	{
 		"lukas-reineke/virt-column.nvim",
 		init = function()
 			require("virt-column").setup()
@@ -45,42 +83,6 @@ local plugins = {
 		init = function()
 			vim.cmd("let g:minimap_auto_start = 1")
 		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{ "windwp/nvim-ts-autotag" },
-		},
-		opts = {
-			autotag = { enable = true },
-			ensure_installed = {
-				"lua",
-				-- web dev
-				"html",
-				"css",
-				"javascript",
-				"typescript",
-				"tsx",
-				"json",
-				"go",
-				"prisma",
-			},
-		},
-	},
-	{
-		"williamboman/mason.nvim",
-		opts = {
-			ensure_installed = {
-				"gopls",
-				"typescript-language-server",
-				"eslint-lsp",
-				"stylua",
-				"css-lsp",
-				"tailwindcss-language-server",
-				"prettier",
-				"shellcheck",
-			},
-		},
 	},
 	{
 		"neovim/nvim-lspconfig",

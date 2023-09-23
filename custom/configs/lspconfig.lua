@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 
-local servers = { "tsserver", "eslint", "gopls", "prismals", "cssls", "tailwindcss" }
+local servers = { "tsserver", "eslint", "gopls", "prismals", "cssls", "tailwindcss", "pylsp" }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
