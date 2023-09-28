@@ -6,7 +6,7 @@ export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh  # Start Znap
 
-znap source marlonrichert/zsh-autocomplete
+# znap source marlonrichert/zsh-autocomplete
 _comp_options+=(globdots)
 # zsh-autocomplete settings
 zstyle ':autocomplete:*' delay 0.1
