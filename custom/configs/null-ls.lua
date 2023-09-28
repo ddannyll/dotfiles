@@ -6,14 +6,14 @@ local lint = null_ls.builtins.diagnostics
 local sources = {
 	formatting.prettier,
 	formatting.stylua,
-	null_ls.builtins.formatting.gofumpt,
-	null_ls.builtins.formatting.golines,
-	null_ls.builtins.formatting.goimports_reviser.with({
+	formatting.gofumpt,
+	formatting.golines,
+	formatting.goimports_reviser.with({
 		extra_args = { "-rm-unused" },
 	}),
 	null_ls.builtins.diagnostics.mypy,
 	null_ls.builtins.diagnostics.ruff,
-	null_ls.builtins.formatting.black,
+	formatting.black,
 
 	lint.shellcheck,
 }
