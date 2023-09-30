@@ -55,6 +55,22 @@ local plugins = {
 		end,
 	},
 	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = {
+			"Trouble",
+			"TroubleToggle",
+		},
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		cmd = "LazyGit",
+	},
+	{
 		"lukas-reineke/virt-column.nvim",
 		init = function()
 			require("virt-column").setup()

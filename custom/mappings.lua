@@ -18,6 +18,8 @@ M.general = {
 		["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window Right" },
 		["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window Down" },
 		["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window Up" },
+		["<leader>gg"] = { "<cmd> LazyGit<CR>", "Launch LazyGit" },
+		["<leader>o"] = { "<cmd> TroubleToggle<CR>", "Toggle Trouble" },
 	},
 	i = {
 		["<C-s>"] = { "<cmd> :w<CR>" },
