@@ -10,6 +10,7 @@ local plugins = {
 			ensure_installed = {
 				"lua",
 				"python",
+				"comment",
 				-- web dev
 				"html",
 				"css",
@@ -61,6 +62,11 @@ local plugins = {
 			"Trouble",
 			"TroubleToggle",
 		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		lazy = false,
 	},
 	{
 		"kdheepak/lazygit.nvim",
