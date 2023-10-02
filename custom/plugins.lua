@@ -3,7 +3,10 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
-			{ "windwp/nvim-ts-autotag" },
+			{
+				"windwp/nvim-ts-autotag",
+				"JoosepAlviste/nvim-ts-context-commentstring",
+			},
 		},
 		opts = {
 			autotag = { enable = true },
@@ -20,6 +23,10 @@ local plugins = {
 				"json",
 				"go",
 				"prisma",
+			},
+			context_commentstring = {
+				enable = true,
+				enable_autocmd = false,
 			},
 		},
 	},
@@ -62,6 +69,14 @@ local plugins = {
 			"Trouble",
 			"TroubleToggle",
 		},
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+			})
+		end,
 	},
 	{
 		"folke/todo-comments.nvim",
