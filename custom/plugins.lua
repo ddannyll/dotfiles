@@ -3,13 +3,17 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
-			{ "windwp/nvim-ts-autotag" },
+			{
+				"windwp/nvim-ts-autotag",
+				"JoosepAlviste/nvim-ts-context-commentstring",
+			},
 		},
 		opts = {
 			autotag = { enable = true },
 			ensure_installed = {
 				"lua",
 				"python",
+				"comment",
 				-- web dev
 				"html",
 				"css",
@@ -19,6 +23,10 @@ local plugins = {
 				"json",
 				"go",
 				"prisma",
+			},
+			context_commentstring = {
+				enable = true,
+				enable_autocmd = false,
 			},
 		},
 	},
@@ -53,6 +61,35 @@ local plugins = {
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
 		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = {
+			"Trouble",
+			"TroubleToggle",
+		},
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+			})
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		lazy = false,
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		cmd = "LazyGit",
 	},
 	{
 		"lukas-reineke/virt-column.nvim",

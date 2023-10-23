@@ -13,6 +13,7 @@ local sources = {
 	}),
 	null_ls.builtins.diagnostics.mypy,
 	null_ls.builtins.diagnostics.ruff,
+	null_ls.builtins.diagnostics.tsc,
 	formatting.black,
 
 	lint.shellcheck,
