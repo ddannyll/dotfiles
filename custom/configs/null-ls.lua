@@ -8,9 +8,9 @@ local sources = {
 	formatting.stylua,
 	formatting.gofumpt,
 	formatting.golines,
-	formatting.goimports_reviser.with({
-		extra_args = { "-rm-unused" },
-	}),
+	-- formatting.goimports_reviser.with({
+	-- 	extra_args = { "-rm-unused" },
+	-- }),
 	null_ls.builtins.diagnostics.mypy,
 	null_ls.builtins.diagnostics.ruff,
 	null_ls.builtins.diagnostics.tsc,
