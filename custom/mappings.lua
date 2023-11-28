@@ -20,6 +20,12 @@ M.general = {
 		["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window Up" },
 		["<leader>gg"] = { "<cmd> LazyGit<CR>", "Launch LazyGit" },
 		["<leader>o"] = { "<cmd> TroubleToggle<CR>", "Toggle Trouble" },
+		["<leader>mm"] = {
+			function()
+				print(vim.fn.expand("%:."))
+			end,
+			"Print CWD",
+		},
 	},
 	i = {
 		["<C-s>"] = { "<cmd> :w<CR>" },
