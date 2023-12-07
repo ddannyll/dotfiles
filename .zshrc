@@ -37,3 +37,18 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PATH="$HOME/.local/bin:$PATH"
+
+export PATH="$HOME/tools/arcanist/bin:$PATH"
+source /home/dnguyen/.pyenv/versions/3.7.13/envs/fli/lib/python3.7/site-packages/fli/scripts/shell-completion/fli-completion.zsh
+
+export ANDROID_SDK="$HOME/Android/Sdk"
+export ANDROID_STUDIO_PATH="/usr/local/android-studio/bin/studio.sh"
+
+export EDITOR=nvim 

@@ -6,6 +6,7 @@ local plugins = {
 			{
 				"windwp/nvim-ts-autotag",
 				"JoosepAlviste/nvim-ts-context-commentstring",
+				{ "elgiano/nvim-treesitter-angular", branch = "topic/jsx-fix" },
 			},
 		},
 		opts = {
@@ -24,7 +25,7 @@ local plugins = {
 				"go",
 				"prisma",
 			},
-			context_commentstring = {
+			ts_context_commentstring = {
 				enable = true,
 				enable_autocmd = false,
 			},
@@ -181,5 +182,28 @@ local plugins = {
 			},
 		},
 	},
+	{
+		url = "ssh://diffusion@phabricator.tools.flnltd.com/source/freelancer-nvim-plugin.git",
+		dependencies = {
+			"f-person/git-blame.nvim",
+			"stevearc/dressing.nvim",
+		},
+		lazy = false,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{
+				"nvim-telescope/telescope-live-grep-args.nvim",
+				-- This will not install any breaking changes.
+				-- For major updates, this must be adjusted manually.
+				version = "^1.0.0",
+			},
+		},
+		config = function()
+			require("telescope").load_extension("live_grep_args")
+		end,
+	},
 }
+
 return plugins
