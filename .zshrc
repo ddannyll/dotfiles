@@ -1,4 +1,6 @@
 export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
+export FLYCTL_INSTALL="/home/daniel/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Download Znap, if it's not there yet.
 [[ -r ~/Repos/znap/znap.zsh ]] ||
