@@ -24,7 +24,7 @@ local plugins = {
 				"go",
 				"prisma",
 			},
-			context_commentstring = {
+			ts_context_commentstring = {
 				enable = true,
 				enable_autocmd = false,
 			},
