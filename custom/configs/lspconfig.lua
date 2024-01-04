@@ -12,6 +12,7 @@ local servers = {
 	"cssls",
 	"tailwindcss",
 	"pyright",
+	"intelephense",
 	-- "angularls",
 }
 for _, lsp in ipairs(servers) do

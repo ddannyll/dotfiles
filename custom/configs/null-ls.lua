@@ -13,8 +13,10 @@ local sources = {
 	-- }),
 	null_ls.builtins.diagnostics.mypy,
 	null_ls.builtins.diagnostics.ruff,
-	formatting.black,
+	null_ls.builtins.diagnostics.psalm,
+	null_ls.builtins.formatting.phpcsfixer,
 
+	formatting.black,
 	lint.shellcheck,
 }
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})

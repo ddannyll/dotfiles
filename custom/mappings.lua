@@ -42,4 +42,10 @@ M.lspconfig = {
 	},
 }
 
+M.cellularAutomation = {
+	n = {
+		["<leader>fk"] = { "<cmd> CellularAutomaton make_it_rain<CR>" },
+	},
+}
+
 return M

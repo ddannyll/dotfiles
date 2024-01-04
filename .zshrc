@@ -1,4 +1,5 @@
 export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
+export PATH="$PATH:/usr/local/go/bin"
 
 # Download Znap, if it's not there yet.
 [[ -r ~/Repos/znap/znap.zsh ]] ||
@@ -52,3 +53,16 @@ export ANDROID_SDK="$HOME/Android/Sdk"
 export ANDROID_STUDIO_PATH="/usr/local/android-studio/bin/studio.sh"
 
 export EDITOR=nvim 
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+alias gil='git log --date=relative --pretty="format:%Cred%h %Cblue%ar %Cgreen%an%n  %s" "$@"'
+alias greset='git reset --hard origin/master && git pull origin'
+
+alias enfli='source ~/fli/bin/activate'
+alias gaf='cd ~/freelancer-dev/fl-gaf'
+alias apatch='arc patch --nobranch --skip-dependencies'
+
+pyenv activate fli
