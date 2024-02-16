@@ -26,6 +26,7 @@ alias lv='nvim'
 alias tm='tmux'
 alias tms='tmux new -s'
 alias tma='tmux attach -t'
+alias lg='lazygit'
 setopt nohup
 
 export NVM_DIR="$HOME/.config/nvm"
