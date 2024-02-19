@@ -8,6 +8,7 @@ local sources = {
 	formatting.stylua,
 	formatting.gofumpt,
 	formatting.golines,
+	formatting.rustfmt,
 	-- formatting.goimports_reviser.with({
 	-- 	extra_args = { "-rm-unused" },
 	-- }),
