@@ -28,6 +28,7 @@ alias tms='tmux new -s'
 alias tma='tmux attach -t'
 alias lg='lazygit'
 setopt nohup
+alias j='just'
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -40,3 +41,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+ 
+alias vlab='ssh z5363586@login.cse.unsw.edu.au'

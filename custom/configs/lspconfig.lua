@@ -12,6 +12,8 @@ local servers = {
 	"cssls",
 	"tailwindcss",
 	"pyright",
+	"clangd",
+	"gleam",
 }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({

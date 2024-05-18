@@ -9,6 +9,7 @@ local sources = {
 	formatting.gofumpt,
 	formatting.golines,
 	formatting.rustfmt,
+	formatting.gleam_format,
 	-- formatting.goimports_reviser.with({
 	-- 	extra_args = { "-rm-unused" },
 	-- }),
