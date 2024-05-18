@@ -1,0 +1,26 @@
+[font]
+size = 12.0
+
+[font.bold]
+family = "JetBrainsMonoNerdFont"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMonoNerdFont"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMonoNerdFont"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+key = "N"
+mods = "Super"
+
+[window]
+opacity = 0.8
+
+[window.padding]
+x = 10
+y = 10
