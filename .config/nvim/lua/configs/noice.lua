@@ -23,5 +23,11 @@ require("noice").setup {
       },
       view = "mini",
     },
+    {
+      view = "cmdline",
+      filter = {
+        event = "msg_showmode",
+      },
+    },
   },
 }
