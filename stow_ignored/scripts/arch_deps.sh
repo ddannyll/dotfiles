@@ -1,1 +1,1 @@
-pacman -S grim slurp alacritty unzip fzf neovim waybar wofi cliphist
+pacman -S grim slurp alacritty unzip fzf neovim waybar wofi cliphist thunar
