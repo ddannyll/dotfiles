@@ -21,7 +21,8 @@ return {
         "stylua",
         "html-lsp",
         "css-lsp",
-        "prettier",
+        "prettierd",
+        "eslint-lsp",
         "typescript-language-server",
       },
     },
@@ -62,5 +63,9 @@ return {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
+  },
+  {
+    "stevearc/dressing.nvim",
+    event = "BufRead",
   },
 }

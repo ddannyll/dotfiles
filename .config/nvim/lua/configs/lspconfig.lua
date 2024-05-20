@@ -1,4 +1,4 @@
-local servers = { "html", "cssls", "tsserver" }
+local servers = { "html", "cssls", "tsserver", "eslint" }
 
 local map = vim.keymap.set
 local conf = require("nvconfig").ui.lsp
