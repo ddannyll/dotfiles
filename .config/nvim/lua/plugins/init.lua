@@ -56,6 +56,7 @@ return {
     event = "VeryLazy",
     config = function()
       require "configs.noice"
+      require("notify").setup { background_colour = "#000000" }
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",
