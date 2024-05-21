@@ -53,17 +53,20 @@ _comp_options+=(globdots)
 eval "$(starship init zsh)"
 
 # Aliases 
+
 alias lah='ls -lah'
 alias ls='ls --color=auto'
-alias vim='nvim'
-alias nv='nvim'
-alias lv='nvim'
+alias tmux='TERM=xterm-256color tmux'
 alias tm='tmux'
 alias tms='tmux new -s'
 alias tma='tmux attach -t'
 alias lg='lazygit'
 alias j='just'
 alias vlab='ssh z5363586@login.cse.unsw.edu.au'
+
+alias nvchad='nvim'
+alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
+alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
 export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
 
