@@ -64,8 +64,9 @@ alias lg='lazygit'
 alias j='just'
 alias vlab='ssh z5363586@login.cse.unsw.edu.au'
 
-alias nvchad='nvim'
+alias nvchad='\nvim'
 alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
+alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
 export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"

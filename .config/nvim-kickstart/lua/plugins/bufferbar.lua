@@ -178,7 +178,20 @@ local bufferline = {
     { 'echasnovski/mini.bufremove', version = '*' },
   },
   config = function()
-    require('bufferline').setup {}
+    require('bufferline').setup {
+      options = {
+        separator_style = 'none',
+        indicator = { style = 'none' },
+        offsets = {
+          {
+            filetype = 'neo-tree',
+            text = '',
+            text_align = 'left',
+            separator = true,
+          },
+        },
+      },
+    }
     require('mini.bufremove').setup {}
   end,
   event = 'BufAdd',
