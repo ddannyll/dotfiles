@@ -31,14 +31,44 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "tsx",
+
+        "gleam",
+        "rust",
         "markdown",
         "vim",
         "lua",
         "vimdoc",
-        "html",
-        "css",
       },
     },
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = false,
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "html",
+    },
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "html",
+    },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
   },
   {
     "kdheepak/lazygit.nvim",
@@ -77,5 +107,18 @@ return {
       "TmuxNavigateRight",
       "TmuxNavigatePrevious",
     },
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup()
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
   },
 }
