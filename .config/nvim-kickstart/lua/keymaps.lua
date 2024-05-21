@@ -24,6 +24,9 @@ map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+map('n', '<leader>v', '<Cmd>vsplit<CR>', { desc = 'Create vertical split' })
+map('n', '<leader>h', '<Cmd>hsplit<CR>', { desc = 'Create horizontal split' })
+
 -- Comments
 map('n', '<leader>/', function()
   require('Comment.api').toggle.linewise.current()
