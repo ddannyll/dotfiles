@@ -41,10 +41,14 @@ local onenord = {
     require('onenord').setup {
       disable = {
         background = true,
+        float_background = true,
       },
     }
 
-    vim.cmd 'colorscheme onenord'
+    vim.cmd.colorscheme 'onenord'
+
+    vim.cmd.hi 'StatusLine guibg=none'
+    vim.cmd.hi 'StatusLineNC guibg=none'
   end,
 }
 return onenord

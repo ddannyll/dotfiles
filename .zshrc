@@ -84,3 +84,5 @@ esac
 # pnpm end
 
  
+
+[ -f "/home/daniel/.ghcup/env" ] && . "/home/daniel/.ghcup/env" # ghcup-env
