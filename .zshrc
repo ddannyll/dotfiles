@@ -63,13 +63,14 @@ alias tma='tmux attach -t'
 alias lg='lazygit'
 alias j='just'
 alias vlab='ssh z5363586@login.cse.unsw.edu.au'
+alias nvimconf='cd ~/dotfiles/.config/nvim-kickstart/'
 
 alias nvchad='\nvim'
 alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
-export PATH="${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
+export PATH="/snap/bin/:${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

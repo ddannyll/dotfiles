@@ -32,12 +32,13 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         javascriptreact = { 'eslint_d', { 'prettierd', 'prettier' } },
         typescriptreact = { 'eslint_d', { 'prettierd', 'prettier' } },
+        -- typescriptreact = { 'eslint_d' },
         javascript = { 'eslint_d', { 'prettierd', 'prettier' } },
         typescript = { 'eslint_d', { 'prettierd', 'prettier' } },
         html = { { 'prettierd', 'prettier' } },

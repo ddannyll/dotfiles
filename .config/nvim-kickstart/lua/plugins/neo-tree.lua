@@ -19,9 +19,18 @@ return {
       end
     end
   end,
-  opts = {
-    close_if_last_window = true,
-  },
+  -- opts = {
+  --   close_if_last_window = true,
+  -- },
+  config = function()
+    require('neo-tree').setup {
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+      },
+    }
+  end,
   keys = {
     { '<leader>e', ':Neotree toggle reveal<CR>', { desc = 'NeoTree toggle' } },
   },

@@ -16,6 +16,23 @@ return {
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+      local border = {
+        { '┌', 'FloatBorder' },
+        { '─', 'FloatBorder' },
+        { '┐', 'FloatBorder' },
+        { '│', 'FloatBorder' },
+        { '┘', 'FloatBorder' },
+        { '─', 'FloatBorder' },
+        { '└', 'FloatBorder' },
+        { '│', 'FloatBorder' },
+      }
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or border
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -116,6 +133,18 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        tailwindcss = {
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+                  { 'cx\\(([^)]*)\\)', "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                },
+              },
+            },
+          },
+        },
         clangd = {},
         gopls = {},
         pyright = {},
