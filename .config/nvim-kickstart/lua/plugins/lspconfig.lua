@@ -170,7 +170,6 @@ return {
         },
         -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --    https://github.com/pmizio/typescript-tools.nvim
-        tsserver = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},

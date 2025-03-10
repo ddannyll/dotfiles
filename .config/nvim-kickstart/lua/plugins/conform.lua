@@ -36,6 +36,9 @@ return {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
+        markdown = { 'prettierd', 'prettier' },
+        yaml = { 'prettierd', 'prettier' },
+        json = { 'prettierd', 'prettier' },
         javascriptreact = { 'eslint_d', { 'prettierd', 'prettier' } },
         typescriptreact = { 'eslint_d', { 'prettierd', 'prettier' } },
         -- typescriptreact = { 'eslint_d' },

@@ -5,6 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
+    'antosha417/nvim-lsp-file-operations',
   },
   cmd = 'Neotree',
   init = function()
@@ -30,6 +31,7 @@ return {
         },
       },
     }
+    require('lsp-file-operations').setup()
   end,
   keys = {
     { '<leader>e', ':Neotree toggle reveal<CR>', { desc = 'NeoTree toggle' } },

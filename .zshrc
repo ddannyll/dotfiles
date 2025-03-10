@@ -87,3 +87,12 @@ esac
  
 
 [ -f "/home/daniel/.ghcup/env" ] && . "/home/daniel/.ghcup/env" # ghcup-env
+. "/home/daniel/.deno/env"
+
+## source esp32 if exists
+if [ -f "$HOME/export-esp.sh" ]; then
+  source "$HOME/export-esp.sh"
+fi
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/daniel/.pulumi/bin
