@@ -87,7 +87,6 @@ esac
  
 
 [ -f "/home/daniel/.ghcup/env" ] && . "/home/daniel/.ghcup/env" # ghcup-env
-. "/home/daniel/.deno/env"
 
 ## source esp32 if exists
 if [ -f "$HOME/export-esp.sh" ]; then
@@ -96,3 +95,19 @@ fi
 
 # add Pulumi to the PATH
 export PATH=$PATH:/home/daniel/.pulumi/bin
+
+export GTK_THEME=Adwaita:dark
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=Adwaita-Dark
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
+# add Pulumi ESC to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+fpath+=~/.zfunc
+autoload -Uz compinit && compinit
