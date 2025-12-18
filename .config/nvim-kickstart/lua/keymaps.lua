@@ -54,4 +54,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Copy file paths
+-- Absolute path
+map('n', '<leader>ya', function()
+  local path = vim.fn.expand('%:p')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied absolute path: ' .. path)
+end, { desc = 'Copy absolute file path' })
+
+-- Relative path
+map('n', '<leader>yr', function()
+  local path = vim.fn.expand('%:.')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied relative path: ' .. path)
+end, { desc = 'Copy relative file path' })
+
 -- vim: ts=2 sts=2 sw=2 et

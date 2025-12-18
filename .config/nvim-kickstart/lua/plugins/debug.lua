@@ -10,7 +10,8 @@ return {
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
-  enabled = false,
+  enabled = true,
+  event = 'VeryLazy',
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -84,6 +85,55 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    dap.adapters['pwa-node'] = {
+      type = 'server',
+      host = 'localhost',
+      port = 8123,
+      executable = {
+        command = os.getenv 'HOME' .. '/.local/share/nvim-kickstart/mason/bin/js-debug-adapter',
+      },
+    }
+    dap.adapters['chrome'] = {
+      type = 'executable',
+      command = 'node',
+      args = {
+        os.getenv 'HOME' .. '/.local/share/nvim-kickstart/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js',
+      },
+    }
+
+    local js_based_languages = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' }
+    for _, language in ipairs(js_based_languages) do
+      dap.configurations[language] = {
+        {
+          name = 'Next.js: debug client-side',
+          type = 'chrome',
+          request = 'launch',
+          url = 'http://localhost:3000',
+          webRoot = '${workspaceFolder}',
+          sourceMaps = true,
+          sourceMapPathOverrides = {
+            ['webpack://_N_E/*'] = '${webRoot}/*',
+          },
+        },
+        {
+          name = 'Next.js: debug server',
+          type = 'pwa-node',
+          request = 'launch',
+          program = '${workspaceFolder}/node_modules/next/dist/bin/next',
+          runtimeArgs = { '--inspect' },
+          skipFiles = { '<node_internals>/**' },
+          serverReadyAction = {
+            action = 'debugWithChrome',
+            killOnServerStop = true,
+            pattern = '- Local:.+(https?://.+)',
+            uriFormat = '%s',
+            webRoot = '${workspaceFolder}',
+          },
+          cwd = '${workspaceFolder}',
+        },
+      }
+    end
 
     -- Install golang specific config
     require('dap-go').setup {

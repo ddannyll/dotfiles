@@ -133,18 +133,6 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        tailwindcss = {
-          settings = {
-            tailwindCSS = {
-              experimental = {
-                classRegex = {
-                  { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
-                  { 'cx\\(([^)]*)\\)', "(?:'|\"|`)([^']*)(?:'|\"|`)" },
-                },
-              },
-            },
-          },
-        },
         clangd = {},
         gopls = {},
         pyright = {},
@@ -168,6 +156,17 @@ return {
             },
           },
         },
+        -- ts_ls = {
+        --   settings = {
+        --     typescript = {
+        --       preferences = {
+        --         importModuleSpecifierPreference = 'non-relative', -- <-- main switch
+        --         importModuleSpecifierEnding = 'minimal', -- optional but common
+        --       },
+        --     },
+        --   },
+        -- },
+
         -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --    https://github.com/pmizio/typescript-tools.nvim
         lua_ls = {
@@ -199,26 +198,57 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'eslint-lsp',
         'prettierd',
         'markdownlint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
       }
+
+      -- Configure LSP servers using the new vim.lsp.config() API
+      for server_name, server_config in pairs(servers) do
+        local config = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+        }, server_config)
+        
+        vim.lsp.config(server_name, config)
+        vim.lsp.enable(server_name)
+      end
+
+      -- Configure vtsls
+      vim.lsp.config('vtsls', {
+        capabilities = capabilities,
+        settings = {
+          typescript = {
+            preferences = {
+              importModuleSpecifier = 'non-relative',
+            },
+          },
+        },
+      })
+      vim.lsp.enable('vtsls')
+
+      -- Configure tailwindcss
+      vim.lsp.config('tailwindcss', {
+        capabilities = capabilities,
+        settings = {
+          tailwindCSS = {
+            classFunctions = { 'tw', 'clsx', 'tw\\.[a-z-]+', 'cn' },
+            classRegex = {
+              { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+              { 'cx\\(([^)]*)\\)', "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+            },
+          },
+        },
+      })
+      vim.lsp.enable('tailwindcss')
     end,
   },
 }
+
 -- vim: ts=2 sts=2 sw=2 et
+--
 --

@@ -16,7 +16,7 @@ return {
       notify_on_error = true,
       format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 500,
+        timeout_ms = 5000,
         lsp_fallback = true,
       },
       -- format_on_save = function(bufnr)
@@ -39,14 +39,13 @@ return {
         markdown = { 'prettierd', 'prettier' },
         yaml = { 'prettierd', 'prettier' },
         json = { 'prettierd', 'prettier' },
-        javascriptreact = { 'eslint' },
+        javascriptreact = { 'eslint_d' },
         typescriptreact = { 'eslint_d', 'prettierd' },
         -- typescriptreact = { 'eslint' },
         -- typescriptreact = { 'eslint_d' },
         -- javascript = { 'eslint_d', { 'prettierd', 'prettier' } },
-        javascript = { 'eslint' },
-        -- typescript = { 'eslint_d', { 'prettierd', 'prettier' } },
-        typescript = { 'eslint' },
+        javascript = { 'eslint_d' },
+        typescript = { 'eslint_d', 'prettierd' },
         html = { 'prettierd' },
       },
     },

@@ -64,6 +64,7 @@ return {
               -- ['<leader>o'] = require('telescope.actions').close,
             },
           },
+          path_display = { 'smart' },
         },
         -- pickers = {}
         extensions = {
@@ -71,6 +72,11 @@ return {
             require('telescope.themes').get_dropdown(),
           },
         },
+        -- pickers = {
+        --   find_files = {
+        --     find_command = { 'rg', '--files', '--hidden', '--ignore' },
+        --   },
+        -- },
       }
 
       -- Enable Telescope extensions if they are installed

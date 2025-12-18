@@ -64,17 +64,24 @@ alias lg='lazygit'
 alias j='just'
 alias vlab='ssh z5363586@login.cse.unsw.edu.au'
 alias nvimconf='cd ~/dotfiles/.config/nvim-kickstart/'
+alias gcp='git cherry-pick'
+alias gp='git pull'
+alias gP='git push'
+alias gco='git checkout'
 
 alias nvchad='\nvim'
 alias vim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+export PATH="${HOME}/.cargo/bin:/snap/bin/:${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
 
-export PATH="/snap/bin/:${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
+# export NVM_DIR="$HOME/.config/nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # pnpm
 export PNPM_HOME="/home/ddannyll/.local/share/pnpm"
@@ -111,3 +118,16 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - zsh)"
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
+
+. "$HOME/.local/share/../bin/env"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+eval "$(zoxide init zsh)"
+
+alias cd='z'
+alias ze='zellij'
+
+# Added by Antigravity
+export PATH="/Users/daniel/.antigravity/antigravity/bin:$PATH"
+export AWS_PROFILE=heidi-dev-profile
