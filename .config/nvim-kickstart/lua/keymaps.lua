@@ -69,4 +69,48 @@ map('n', '<leader>yr', function()
   vim.notify('Copied relative path: ' .. path)
 end, { desc = 'Copy relative file path' })
 
+-- Function name and relative path
+map('n', '<leader>yl', function()
+  local path = vim.fn.expand('%:.')
+  local line = vim.fn.line('.')
+
+  -- Try to get function name using Treesitter
+  local function_name = ''
+  local ok, ts_utils = pcall(require, 'nvim-treesitter.ts_utils')
+
+  if ok then
+    local node = ts_utils.get_node_at_cursor()
+    while node do
+      local node_type = node:type()
+      if node_type == 'function_declaration' or
+         node_type == 'function_definition' or
+         node_type == 'method_declaration' or
+         node_type == 'method_definition' or
+         node_type == 'arrow_function' or
+         node_type == 'function_item' then
+        -- Try to find the function name
+        for child in node:iter_children() do
+          local child_type = child:type()
+          if child_type == 'identifier' or child_type == 'name' or child_type == 'property_identifier' then
+            function_name = vim.treesitter.get_node_text(child, 0)
+            break
+          end
+        end
+        break
+      end
+      node = node:parent()
+    end
+  end
+
+  local result
+  if function_name ~= '' then
+    result = path .. ':' .. function_name
+  else
+    result = path .. ':' .. line
+  end
+
+  vim.fn.setreg('+', result)
+  vim.notify('Copied: ' .. result)
+end, { desc = 'Copy function name and relative path' })
+
 -- vim: ts=2 sts=2 sw=2 et

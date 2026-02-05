@@ -25,6 +25,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
   },
   config = function()
     local dap = require 'dap'
@@ -44,11 +45,13 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'debugpy',
       },
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<leader>dd', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
@@ -141,6 +144,75 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    -- Python debugging with debugpy
+    -- Uses Mason-installed debugpy by default
+    require('dap-python').setup(os.getenv 'HOME' .. '/.local/share/nvim-kickstart/mason/packages/debugpy/venv/bin/python')
+
+    -- Python configurations for FastAPI/Poetry projects
+    dap.configurations.python = {
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch current file',
+        program = '${file}',
+        pythonPath = function()
+          -- Try poetry environment first, fall back to system python
+          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
+          if poetry_venv ~= '' then
+            return poetry_venv .. '/bin/python'
+          end
+          return 'python'
+        end,
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'FastAPI: main.py',
+        program = '${workspaceFolder}/main.py',
+        pythonPath = function()
+          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
+          if poetry_venv ~= '' then
+            return poetry_venv .. '/bin/python'
+          end
+          return 'python'
+        end,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Pytest: current file',
+        module = 'pytest',
+        args = { '${file}', '-v', '-s' },
+        pythonPath = function()
+          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
+          if poetry_venv ~= '' then
+            return poetry_venv .. '/bin/python'
+          end
+          return 'python'
+        end,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+      },
+      {
+        type = 'python',
+        request = 'attach',
+        name = 'Attach to running process',
+        connect = {
+          host = '127.0.0.1',
+          port = 5678,
+        },
+        pythonPath = function()
+          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
+          if poetry_venv ~= '' then
+            return poetry_venv .. '/bin/python'
+          end
+          return 'python'
+        end,
       },
     }
   end,
