@@ -1,3 +1,16 @@
+# Credentials — never commit
+.config/gcloud/
+
+# Editor / tool churn
 .config/cursor/chats
+.config/cursor/statsig-cache.json
 .config/raycast/extensions
 .config/uv
+
+# Backup / swap files
+*.bak
+*.swp
+*.swo
+
+# macOS
+.DS_Store

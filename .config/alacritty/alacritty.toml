@@ -19,7 +19,7 @@ key = "N"
 mods = "Super"
 
 [window]
-opacity = 0.8
+opacity = 1
 
 [window.padding]
 x = 10
@@ -27,3 +27,8 @@ y = 10
 
 [cursor.style]
 shape = "Beam"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

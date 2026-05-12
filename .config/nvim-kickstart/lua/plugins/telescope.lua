@@ -50,6 +50,17 @@ return {
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
 
+      local no_test_patterns = {
+        '__tests__/',
+        '__test__/',
+        '%.test%.',
+        '%.spec%.',
+        '_test%.',
+        '_spec%.',
+        'test/',
+        'tests/',
+      }
+
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -65,6 +76,7 @@ return {
             },
           },
           path_display = { 'smart' },
+          file_ignore_patterns = no_test_patterns,
         },
         -- pickers = {}
         extensions = {
@@ -93,9 +105,17 @@ return {
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 
-      vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind [W]ord' })
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Search Files' })
-      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind [O]ld Files' })
+      vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind [W]ord (no tests)' })
+      vim.keymap.set('n', '<leader>fW', function()
+        builtin.live_grep { file_ignore_patterns = {} }
+      end, { desc = '[F]ind [W]ord (all)' })
+
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles (no tests)' })
+      vim.keymap.set('n', '<leader>fF', function()
+        builtin.find_files { file_ignore_patterns = {} }
+      end, { desc = '[F]ind [F]iles (all)' })
+
+      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind [O]ld Files (no tests)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       vim.keymap.set('n', '<leader>o', builtin.resume, { desc = 'Resume Telescope Session' })

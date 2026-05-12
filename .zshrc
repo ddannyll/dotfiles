@@ -57,7 +57,7 @@ eval "$(starship init zsh)"
 alias lah='ls -lah'
 alias ls='ls --color=auto'
 alias tmux='TERM=xterm-256color tmux'
-alias tm='tmux'
+alias tm='zellij'
 alias tms='tmux new -s'
 alias tma='tmux attach -t'
 alias lg='lazygit'
@@ -84,7 +84,7 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # pnpm
-export PNPM_HOME="/home/ddannyll/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -131,3 +131,25 @@ alias ze='zellij'
 # Added by Antigravity
 export PATH="/Users/daniel/.antigravity/antigravity/bin:$PATH"
 export AWS_PROFILE=heidi-dev-profile
+
+zellij_tab_name_update() {
+    if [[ -n $ZELLIJ ]]; then
+        local current_dir=$PWD
+        if [[ $current_dir == $HOME ]]; then
+            current_dir="~"
+        else
+            current_dir=${current_dir##*/}
+        fi
+        command nohup zellij action rename-tab $current_dir >/dev/null 2>&1
+    fi
+}
+
+zellij_tab_name_update
+chpwd_functions+=(zellij_tab_name_update)
+
+# bun completions
+[ -s "/Users/daniel/.bun/_bun" ] && source "/Users/daniel/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

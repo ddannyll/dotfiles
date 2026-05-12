@@ -26,6 +26,9 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
     'mfussenegger/nvim-dap-python',
+
+    -- virtual text
+    'theHamsta/nvim-dap-virtual-text',
   },
   config = function()
     local dap = require 'dap'
@@ -78,6 +81,26 @@ return {
           run_last = '▶▶',
           terminate = '⏹',
           disconnect = '⏏',
+        },
+      },
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.25 },
+            { id = 'breakpoints', size = 0.25 },
+            { id = 'stacks', size = 0.25 },
+            { id = 'watches', size = 0.25 },
+          },
+          size = 40,
+          position = 'right',
+        },
+        {
+          elements = {
+            { id = 'repl', size = 0.5 },
+            { id = 'console', size = 0.5 },
+          },
+          size = 0.25,
+          position = 'bottom',
         },
       },
     }
@@ -151,36 +174,98 @@ return {
     -- Uses Mason-installed debugpy by default
     require('dap-python').setup(os.getenv 'HOME' .. '/.local/share/nvim-kickstart/mason/packages/debugpy/venv/bin/python')
 
-    -- Python configurations for FastAPI/Poetry projects
+    -- Resolve a project-local Python interpreter.
+    -- Order: in-tree .venv (uv) → poetry env → $VIRTUAL_ENV → system python.
+    local function resolve_python()
+      local cwd = vim.fn.getcwd()
+      local uv_python = cwd .. '/.venv/bin/python'
+      if vim.fn.executable(uv_python) == 1 then
+        return uv_python
+      end
+      local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
+      if vim.v.shell_error == 0 and poetry_venv ~= '' then
+        return poetry_venv .. '/bin/python'
+      end
+      local active_venv = os.getenv 'VIRTUAL_ENV'
+      if active_venv and active_venv ~= '' then
+        return active_venv .. '/bin/python'
+      end
+      return 'python'
+    end
+
+    -- Pick a project .env file if it exists; debugpy will load it.
+    local function resolve_env_file()
+      local env_file = vim.fn.getcwd() .. '/.env'
+      if vim.fn.filereadable(env_file) == 1 then
+        return env_file
+      end
+      return nil
+    end
+
+    -- Extra env vars that mirror what `task dev` injects (ml-scribe-specific).
+    -- WeasyPrint needs DYLD_FALLBACK_LIBRARY_PATH on macOS pointing at brew libs.
+    local function project_env()
+      local env = {}
+      if vim.fn.has 'mac' == 1 and vim.fn.executable 'brew' == 1 then
+        local brew_prefix = vim.fn.trim(vim.fn.system 'brew --prefix 2>/dev/null')
+        if vim.v.shell_error == 0 and brew_prefix ~= '' then
+          env.DYLD_FALLBACK_LIBRARY_PATH = brew_prefix .. '/lib'
+        end
+      end
+      return env
+    end
+
+    -- Python configurations for FastAPI projects (ml-scribe uses uv).
     dap.configurations.python = {
       {
         type = 'python',
         request = 'launch',
         name = 'Launch current file',
         program = '${file}',
-        pythonPath = function()
-          -- Try poetry environment first, fall back to system python
-          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
-          if poetry_venv ~= '' then
-            return poetry_venv .. '/bin/python'
-          end
-          return 'python'
-        end,
+        pythonPath = resolve_python,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+        justMyCode = false,
       },
       {
         type = 'python',
         request = 'launch',
-        name = 'FastAPI: main.py',
+        name = 'FastAPI: main.py (reload, follow subprocess)',
         program = '${workspaceFolder}/main.py',
-        pythonPath = function()
-          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
-          if poetry_venv ~= '' then
-            return poetry_venv .. '/bin/python'
-          end
-          return 'python'
-        end,
+        pythonPath = resolve_python,
         cwd = '${workspaceFolder}',
         console = 'integratedTerminal',
+        justMyCode = false,
+        subProcess = true,
+        envFile = resolve_env_file,
+        env = project_env,
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'FastAPI: uvicorn main:app (no reload, single process)',
+        module = 'uvicorn',
+        args = { 'main:app', '--host', '0.0.0.0', '--port', '8080' },
+        pythonPath = resolve_python,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+        justMyCode = false,
+        envFile = resolve_env_file,
+        env = project_env,
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'FastAPI: uvicorn main:app (reload, follow subprocess)',
+        module = 'uvicorn',
+        args = { 'main:app', '--host', '0.0.0.0', '--port', '8080', '--reload' },
+        pythonPath = resolve_python,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+        justMyCode = false,
+        subProcess = true,
+        envFile = resolve_env_file,
+        env = project_env,
       },
       {
         type = 'python',
@@ -188,32 +273,45 @@ return {
         name = 'Pytest: current file',
         module = 'pytest',
         args = { '${file}', '-v', '-s' },
-        pythonPath = function()
-          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
-          if poetry_venv ~= '' then
-            return poetry_venv .. '/bin/python'
-          end
-          return 'python'
-        end,
+        pythonPath = resolve_python,
         cwd = '${workspaceFolder}',
         console = 'integratedTerminal',
+        justMyCode = false,
+        envFile = resolve_env_file,
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Pytest: nearest test (cursor word)',
+        module = 'pytest',
+        args = function()
+          local node = vim.fn.expand '<cword>'
+          return { '${file}::' .. node, '-v', '-s' }
+        end,
+        pythonPath = resolve_python,
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+        justMyCode = false,
+        envFile = resolve_env_file,
       },
       {
         type = 'python',
         request = 'attach',
-        name = 'Attach to running process',
+        name = 'Attach to running process (port 5678)',
         connect = {
           host = '127.0.0.1',
           port = 5678,
         },
-        pythonPath = function()
-          local poetry_venv = vim.fn.trim(vim.fn.system 'poetry env info -p 2>/dev/null')
-          if poetry_venv ~= '' then
-            return poetry_venv .. '/bin/python'
-          end
-          return 'python'
-        end,
+        pythonPath = resolve_python,
+        justMyCode = false,
+        pathMappings = {
+          {
+            localRoot = '${workspaceFolder}',
+            remoteRoot = '${workspaceFolder}',
+          },
+        },
       },
     }
+    require('nvim-dap-virtual-text').setup()
   end,
 }
